@@ -1,3 +1,3 @@
 # data-management-manu
 
-Materials for data management mansucript
+Materials for data management manuscript

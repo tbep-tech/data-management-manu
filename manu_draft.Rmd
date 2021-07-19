@@ -126,10 +126,6 @@ There are many reasons why data may not be effectively managed, chief among whic
 
 A classic graphic in Michener et al. [@Michener97] demonstrates how knowledge of a data product can be lost over time (Figure \@ref(fig:michener)). As a research team publishes a paper, the information content of the data and metadata is at an all-time high because the ideas and concepts have been intensely studied and evaluated in the months leading up to publication.  After publication, researchers move on to other projects or responsibilities, and specific details about the initial project are lost rapidly as attention is focused elsewhere.  At longer time scales, other factors can contribute to the erosion of information content, including career changes through retirement or staff turnover or accidental loss of information (laptop takes a bath, lab fires, etc.). 
 
-```{r michener, echo = F, fig.cap = 'Loss of information over time in the absence of data management [@Michener97]'}
-knitr::include_graphics('figs/michener.png')
-```
-
 The final step in Figure \@ref(fig:michener) leading to absolute and complete loss of information on a data product is death of an investigator. Although a bit morbid, this is a very real and preventable problem in the process of discovery that can lead you down the frustrating path of reconstructing a data product's origin by scouring historical records that have little to no descriptive information. As a remedy, many research teams have adopted the "bus factor" term as motivation to prevent this problem. The bus factor is an informal measurement of the relative risk associated with loss of information if an investigator was to, hypothetically, be hit by a bus (alternatively, the "lottery factor" describes departure of an individual if they were to win the lottery).  Datasets or workflows that have a high bus/lottery factor are at high risk of being orphaned with the  departure of a team member.    
 
 The costs of not effectively managing your data can vary, but each is a byproduct of neglecting an investment in data curation.  In fact, you can probably recall several past instances when poor data management has come back to haunt you.  Here are a few real-world examples: 
@@ -272,10 +268,6 @@ Before we get into tidy data, we need to discuss some of the downfalls of Excel 
 
 Excel allows you to abuse your data in many ways, such as adding color to cells, embedding formulas, and automatically formatting cell types (figure \@ref(fig:excelbad)).  The problem occurs when this organization becomes ambiguous and only has meaning inside the head of the person who created the spreadsheet.  For example, color may be used to fill cells of a given category. This may seem harmless, but in doing so, you've not only indirectly created more data, but you've created data that have an ambiguous meaning.  Embedding formulas that reference specific locations in or across spreadsheets is also a nightmare scenario for reproducibility.  There is no clear way to extract the hidden workflow embedded in many spreadsheets.
 
-```{r excelbad, fig.cap = "An exceptional example of table abuse using Excel.", out.width = '80%', fig.align = 'center', echo = F}
-knitr::include_graphics('figs/excel_bad.png')
-```
-
 If you absolutely must use Excel to store data, the only acceptable format you should use as a responsible data steward is a rectangular, flat file.  We mean "rectangular" as storing data only in rows and columns in matrix format (e.g., 10 rows x 5 columns), with no "dangling" cells that have values outside of the grid or more than one table in a spreadsheet.  We mean "flat file" as no cell formatting, no embedded formulas, no multiple spreadsheets in the same file, and data entered only as alphanumeric characters. This will ensure that there is no ambiguous information and a machine will have no problem reading your spreadsheet.  Your data will be pure and simple and not abused. @Broman18 provide an excellent guide that expands on these ideas. Essentially, these best practices force you to isolate the analysis from the data - many people use Excel to mix the two, leading to problems. 
 
 Now we can introduce some additional principles for tabular data that will improve how they are used in downstream analysis pipelines.  The "tidy" data principles developed by Hadley Wickham [@Wickham14c] are a set of simple rules for storing tabular data that have motivated the development of the wildly popular tidyverse suite of R packages [@Wickham19]. If you're already using the rectangular, flat file format, adopting the tidy principles should be a breeze. The rules are simple: 
@@ -286,19 +278,11 @@ Now we can introduce some additional principles for tabular data that will impro
 
 Graphically, these rules are shown in figure \@ref(fig:tidy). 
 
-```{r tidy, fig.cap = 'A representation of the rules for tidy data (from @Wickham17).'}
-knitr::include_graphics('figs/tidy-1.png')
-```
-
 Using these principles for data storage may seem unnatural at first because of a difference between what's easy for entering data versus what makes sense for downstream analyses.  The former is what leads to abuse of tables.  For example, dates are often spread across multiple columns, such as having one column for each year of data where the header indicates the year that applies to data in each column.  This convention may be used because it's easy to add another year of data as an additional column when more data each year are collected.  However, this is untidy because the date variable occurs across columns.  If you wanted to evaluate changes across years in a formal analysis, you'd have to reorganize these data in a tidy format.  
 
 Using a tidy format also allows you to more easily merge or join data between tables.  This is a common task when analyzing data where you have information spread between different tables because: 1) it might not make sense to keep the data in the same table, and 2) the analysis depends on information from both tables.  For example, perhaps you want to evaluate how a measured variable at different locations changes across space.  You might have one table that includes station metadata (e.g., site name, location) and another table that includes field observations (e.g., site name, collection date, field data) (Figure \@ref(fig:joins)).  Keeping the station metadata in a tidy format in one table makes sense because these data will not change.  Keeping field data in another table would also make sense because you collect information at each location at different times.  Including station coordinate information in the same table as the field data would create extra information because you need a value for location for every row you have field data.  This is redundant and unnecessary.  
 
 If you're using a tidy format, it's simple to join two tables for analysis.  This requires identifying a linking variable or "key" that is a common identifier between tables.  In the above example, this would be the site name (Figure \@ref(fig:joins)).  Other situations may require identifying more complex keys depending on your analysis question.  Our question above relates to evaluating station differences by location, so the site name is a logical choice for a key.  For all cases, a key is used to resolve a uniquely identifiable value that can be used to link observations. A more involved example is provided in section \@ref(oyster).  If the important data contribution of your project includes multiple tables, you'll need to identify appropriate keys that allow you to clearly link observations between tables.  
-
-```{r joins, echo = F, out.width = '100%', fig.cap = 'Joining two tidy tables by a shared key.'}
-knitr::include_graphics('figs/joins.png')
-```
 
 ## Metadata {#metadatadesc}
 
@@ -340,10 +324,6 @@ Good metadata has information on who has the data and how to contact them for re
 
 Now that we've covered the general concepts of what is included in metadata, we provide some examples of what this looks like in practice.  At it's simplest, metadata can be a text file that includes information on the questions above. Below is one such example of metadata that accompanies a dataset that we describe in section \@ref(desoto).  
 
-```{r desotometa, fig.cap='A simple example of metadata illustring the principle that something is better than nothing.', echo = F}
-knitr::include_graphics('figs/desotometa.PNG')
-```
-
 Just by looking at the metadata, we can quickly understand some basic information about this dataset. It describes some water quality monitoring data at two buoys near Ft. DeSoto in Pinellas County, Florida.  We can see the type of data, how often it's collected, what equipment was used, the location of the buoys, some contact information should there be questions, and other items that provide additional context.  Although it doesn't cover all of the questions above, an analyst has some assurances to confidently work with these data since the metadata provides basic context.  
 
 The example in figure \@ref(fig:desotometa) represents the bare minimum of what should be done to document metadata. This metadata is an excellent example of the principle that __some metadata is better than no metadata__. Many datasets lack even the simplest information to facilitate their use by others. At its core, metadata should serve the purpose of providing information about information.  No matter the level of specificity or metadata standard that was used, all metadata serve this need.  However, more formalized approaches to documenting metadata can play an important role in preparing a dataset for discovery by others and long-term archiving. The next section provides one example of a metadata standard that TBEP encourages for most environmental datasets.   
@@ -355,10 +335,6 @@ There are countless standards for metadata that go beyond the simple descriptive
 One such standard that is useful for environmental data is the [Ecological Metadata Language](https://eml.ecoinformatics.org/) or EML.  The EML standard defines a comprehensive vocabulary and a readable XML markup syntax (fancy talk for machine readable) for documenting research data.  Importantly, the standard is community maintained and developed for environmental researchers who want to openly share their data.  The EML standard is also used by the [Knowledge Network for Biocomplexity](https://knb.ecoinformatics.org/) or KNB, which is an online repository that is federated with a much larger network of online data repositories. 
 
 The EML metadata file is an XML file that looks something like this: 
-
-```{r emlsimple, fig.cap='A very simple example of an EML file for metadata, shown in XML syntax.', out.width = '70%', echo = F}
-knitr::include_graphics('figs/emlsimple.PNG')
-```
 
 The file in figure \@ref(fig:emlsimple) might look complicated, but it's just a way to document the basic components of metadata so that a machine can read them.  Regarding the descriptive role of metadata, the above example provides a title for the dataset, a brief description, and who to contact.  All the rest is additional information about the standard that was used and basic XML tags to identify parts of the document. The EML provides many more standards to document other types of metadata information for the questions in section \@ref(metadatadesc).  
 
@@ -796,6 +772,30 @@ knitr::include_graphics('figs/code_hero.jpg')
 # Acknowledgments
 
 # Figures
+
+```{r michener, echo = F, fig.cap = 'Loss of information over time in the absence of data management [@Michener97]'}
+knitr::include_graphics('figs/michener.png')
+```
+
+```{r excelbad, fig.cap = "An exceptional example of table abuse using Excel.", out.width = '80%', fig.align = 'center', echo = F}
+knitr::include_graphics('figs/excel_bad.png')
+```
+
+```{r tidy, fig.cap = 'A representation of the rules for tidy data (from @Wickham17).'}
+knitr::include_graphics('figs/tidy-1.png')
+```
+
+```{r joins, echo = F, out.width = '100%', fig.cap = 'Joining two tidy tables by a shared key.'}
+knitr::include_graphics('figs/joins.png')
+```
+
+```{r desotometa, fig.cap='A simple example of metadata illustring the principle that something is better than nothing.', echo = F}
+knitr::include_graphics('figs/desotometa.PNG')
+```
+
+```{r emlsimple, fig.cap='A very simple example of an EML file for metadata, shown in XML syntax.', out.width = '70%', echo = F}
+knitr::include_graphics('figs/emlsimple.PNG')
+```
 
 # Tables
 

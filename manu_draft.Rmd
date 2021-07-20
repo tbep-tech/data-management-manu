@@ -1,5 +1,5 @@
 ---
-title: "Title place-holder"
+title: "Moving from implied to applied science with better data management"
 output: 
   bookdown::word_document2:
     reference_docx: my_styles.docx
@@ -32,75 +32,14 @@ spelling::spell_check_files('manu_draft.Rmd')
 
 # Abstract
 
+Consensus on managing environmental resources is difficult to achieve without free exchange of ideas between the research community, resource management professionals, policy-makers, and the broader public. Within the research community, printed periodicals continue to be used to share and validate research results.  An expectation is that these products and the data behind them can be used outside of academic circles for actionable outcomes that support environmental decision-making.  In the absence of methods to effectively share ideas and data supporting a research product, this mode of thinking often leads to implied science where the naive hope is that the research paper alone is sufficient to affect change.  In order to achieve truly applied science, researchers, managers, and the institutions that support them can leverage open science practices for better data management.  Data serve as the foundation of all research products and can be products in themselves that deserve a life beyond a research project.  The National Estuary Program within the United States is one such example where data management practices can be improved to better achieve science-based management plans for estuaries of national significance.  This paper describes an approach leveraged by the Tampa Bay Estuary Program to adopt open science tools for better data management, both internally to increase efficiency and among regional partners that can affect positive environmental change.  The ideas are equally applicable to other institutions that struggle with data management in settings where research products are intended to have actionable outcomes. A data management workflow is presented that can be adopted at any stage of the research process using FAIR principles and internet resources for curating data.  A pragmatic approach is emphasized that encourages others to work towards incremental improvements over time by applying modular tools in a generalizable framework. By recognizing the important role of data in the research process and how data can ultimately shape informed decisions, this paper advocates for better data management practices as a critical step in science application.
 
-*Key words*: 
+*Key words*: data, FAIR, metadata, National Estuary Program, open science
 
 
 # Overview {#overview}
 
 Welcome to the Tampa Bay Estuary Program Data Management Standard Operating Procedures (SOP). This document describes our philosophy and general workflow for managing data used by our Program and serves as motivation for our external partners to become stewards of their own data. Working together, we can improve how data are curated and used to support the continued protection and restoration of Tampa Bay.
-
-## Contributing to this document {#contrib}
-
-Using an open science ethos, we strongly encourage community collaboration in how this document evolves. This means anybody can contribute directly to content in this document.  Please follow the guidelines in this section to learn how to contribute and improve this SOP. 
-
-This SOP was created using [bookdown](https://bookdown.org/), which is an approach to creating long-form documents with RMarkdown. The source code is available on the TBEP GitHub group web page: <https://github.com/tbep-tech/data-management-sop>. Each section is a plain .Rmd text file that can be edited or commented to  provide feedback on content.  There are several ways you can contribute to or edit this document.
-
-Before you choose your editing option, you should be comfortable with Git/GitHub basics and have some working knowledge of RMarkdown files (but see \@ref(opt4)). The first step is to make sure you have a [GitHub account](https://github.com/join) so you can edit the files.  Jenny Bryan's [Happy Git and GitHub for the useR](https://happygitwithr.com/) is an excellent resource to get started with version control.  [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) is a great resource for learning RMarkdown (also see the [cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)).
-
-### Option 1 {#opt1}
-
-*Requires*: GitHub account, write access to the source code repository
-
-Each section can be edited directly by selecting the edit button at the top of the page. 
-
-```{r}
-knitr::include_graphics('figs/editarrow.png')
-```
-
-Clicking on the edit button will take you to GitHub, where you will see an edit page like this:
-
-```{r, out.width = '100%'}
-knitr::include_graphics('figs/editme.PNG')
-```
-
-Each edit page is specific to the section where you've selected the edit button, e.g., if you click the edit button for section 2, you'll be sent to the edit page for the .Rmd file for section 2.  Feel free to make any changes on the .Rmd file.  When you're done, scroll to the bottom and "commit" your changes.  This simply means you write a few words describing the edits you've made.  Be as succinct as possible. When you're done, hit the green "Commit changes" button.  
-
-```{r, out.width = '100%'}
-knitr::include_graphics('figs/editme2.PNG')
-```
-
-### Option 2 {#opt2}
-
-*Requires*: Github account
-
-Follow the above steps in \@ref(opt1) by navigating to a section you'd like to edit on this website and selecting the edit button. If you don't have write access to the repository, you will see something like this: 
-
-```{r, out.width = '100%'}
-knitr::include_graphics('figs/editme3.PNG')
-```
-
-This simply means that you need to create your own copy to edit.  You can fork your own copy to your personal account and make your edits there. Once editing is done, you can submit a pull request to the original repository with your proposed changes.  Not sure what this means? Check out this chapter here: [https://happygitwithr.com/fork-and-clone.html](https://happygitwithr.com/fork-and-clone.html)
-
-### Option 3 {#opt3}
-
-*Requires*: GitHub account
-
-If none of the above sounds appealing, you can always post any suggestions or edits as an issue under the [issues tab](https://github.com/tbep-tech/data-management-sop/issues) of the repository.  When you create a new issue by clicking the giant green "New issue" button, you'll see something like this: 
-
-```{r, out.width = '100%'}
-knitr::include_graphics('figs/issues.PNG')
-```
-
-Give your issue a short but informative title (e.g., "Suggested edits to Section 2").  Under the "Write" tab, explain what edits or changes you'd like to see.  Feel free to select a member of the TBEP staff to assign the issue using the menu on the right.  The issues descriptions support Markdown syntax, so get creative in your descriptions (i.e., make lists, link to documents, etc., see the [cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)).
-
-In general, one issue should cover only one suggested change to the document.  However, multiple text edits to the same document can be submitted to the same issue so long as they cover similar topics, e.g., one issue for several suggested edits to one section.  
-
-### Option 4 {#opt4}
-
-*Requires*: Email
-
-Just [email me](mailto:mbeck@tbep.org) any changes you'd like to see! 
 
 ## About
 
@@ -183,7 +122,6 @@ Each section of the SOP addresses a critical topic or provides a roadmap that co
 * Section \@ref(workflow): An explanation of how TBEP manages data and a roadmap to further developing internal and external workflows
 * Section \@ref(cases): Examples describing specific projects and why/how data management practices were applied to each
 * Section \@ref(final): Parting thoughts and words of wisdom to help you continue on your open science and data management journey
-* Section \@ref(appendices): Definitions and resources for continued learning
 
 The TBEP has also developed a data [Quality Management Plan](https://drive.google.com/file/d/1DyA0PNHV8rEXGMwGiyS7sXY1ECLYpJJO/view) [QMP; @tbep1620].  This SOP and the QMP can be viewed as complementary documents, but they were developed to meet different needs.  The goal of this SOP is described above. The goal of the QMP is to ensure the data used by TBEP for decision-making has known and documented quality and is being used appropriately.  In other words, the QMP establishes an internal process for ensuring data quality conforms with federal or grant-reporting requirements, whereas this document is a generalized introduction and how-to approach for data management that can help us achieve QMP goals.  
 
@@ -196,7 +134,7 @@ To summarize, this document __is__:
 
 This document __is not__:
 
-* A definitive overview of best practices for data management -- there are other resources (see section \@ref(appendices)) that cover these topics in more detail; and,
+* A definitive overview of best practices for data management -- there are other resources that cover these topics in more detail; and,
 * A comprehensive list of available online services for opening data, although we certainly lean towards specific platforms that we find useful.
 
 Finally, the intended audience for this SOP is TBEP internal staff and our external partners.  In both cases, the text is written to target technical staff, although the concepts and principles are appropriate for some tasks conducted by managers or higher administrative staff.  These individuals are also in a position to foster better practices for data management by creating space and time for technical staff to adopt these new workflows.  Understanding the importance of the tools is important, but sufficient space must be available for these skillsets to grow through a shared community of practice.  Over time, the return on investment in staff developing these skillsets will be realized.   
@@ -709,7 +647,7 @@ I close with a graphic from [Allison Horst](https://twitter.com/allison_horst) (
 knitr::include_graphics('figs/michener.png')
 ```
 
-```{r excelbad, fig.cap = "An exceptional example of table abuse using Excel.", out.width = '80%', fig.align = 'center', echo = F}
+```{r excelbad, fig.cap = "An exceptional example of table abuse using Excel.", out.width = '80%', echo = F}
 knitr::include_graphics('figs/excel_bad.png')
 ```
 
@@ -732,7 +670,7 @@ knitr::include_graphics('figs/emlsimple.PNG')
 ```{r datadict, out.width = '80%', echo = F, fig.cap = 'An example of a data dictionary.'}
 knitr::include_graphics('figs/datadict.png')
 ```
-```{r divide, out.width = '80%', fig.cap = "Challenges to bridging the divide between scientific products created in research and informed decisions for environmental management.", fig.align = 'center', echo = F}
+```{r divide, out.width = '80%', fig.cap = "Challenges to bridging the divide between scientific products created in research and informed decisions for environmental management.", echo = F}
 knitr::include_graphics('figs/divide2.png')
 ```
 

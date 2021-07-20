@@ -356,10 +356,6 @@ Be as descriptive as possible while trying to keep the name as short as possible
 
 Describe the type of data in each column, e.g., numerical measurements, categorical descriptors, or counts of observations.  Never, ever mix data types in the same column.  If your data are continuous numeric values, try to identify an acceptable range for the values, e.g., are there minimum or maximum values that would indicate the data are out of range? Also make note of the units that were used.  For categorical descriptors, identify all possible categories that are acceptable values for the column, e.g., small, medium, or large for a qualitative descriptor of size.  For dates, make note of the format, e.g., YYYY-MM-DD.  For time, identify the timezone. 
 
-```{r datadict, out.width = '80%', echo = F, fig.cap = 'An example of a data dictionary.'}
-knitr::include_graphics('figs/datadict.png')
-```
-
 ## Where do data live? {#datahome}
 
 Identifying a location for where your data can be stored long-term is an important step in working towards FAIR principles.  Hosting your data in an online repository makes your data findable and accessible by others and also ensures that your data are of sufficient quality to adhere to standards for the repository.  There is a staggering variety of online repositories, many of which are domain-specific, and it can be difficult to find the best repository that is suitable to your needs.  
@@ -401,19 +397,11 @@ Without getting too much into the history of how insular practices among academi
 
 In addition to communication barriers, other challenges to applied science include irreproducible results, information loss, inaccessible data, and opaque workflows (section \@ref(whymanage), Figure \@ref(fig:divide)).  These challenges affect how science is delivered to decision-makers, how much trust a decision-maker can have in the science behind the decision, and how likely the science can be used as a springboard for additional scientific inquiry.  Effective data management as a subset of the broader principles of open science can help bridge the "research-management divide" and help develop continuity of scientific products that can benefit the larger research community.    
 
-```{r divide, out.width = '80%', fig.cap = "Challenges to bridging the divide between scientific products created in research and informed decisions for environmental management.", fig.align = 'center', echo = F}
-knitr::include_graphics('figs/divide2.png')
-```
-
 ### The open science cake
 
 Truly applied science facilitated by open science principles allows for research results or data to connect with different audiences along a spectrum.  It allows research to be shared with other researchers, be connected with decision-makers, and be accessible to the general public.  Where an individual consumes scientific information along the spectrum depends on their interest, need, or level of background knowledge about a subject.  A solid technical foundation is a prerequisite for sharing information and open science methods allow various elements of the research foundation to be accessible to different end users.  We meet our audience where they're at, rather than assuming they can find their way to the details they need. 
 
 We can describe this metaphor as the __open science cake__ (figure \@ref(fig:cake)).  We use this metaphor because everybody loves cake and it conveniently describes the TBEP philosophy to delivering science in an applied context.  This delicious layered cake is a gradient of information from top to bottom.  At the top, the information is more general (e.g., educational material for public consumption) or can be used to inform action (e.g., what needs to be done to remedy a problem).  At the bottom, the information has specificity and forms the foundation for generality or action at the upper layers.  The bottom of the cake is large, reflecting the decades of research and technical resources that are available to inform the management of Tampa Bay (e.g., our [library](http://tbep.org/library)).  The bottom also includes resources that can be used to springboard additional research, such as analysis code and source datasets.  Individuals at the top of the cake probably don't want a slice at the bottom, but the slice they take from the top would not exist without support from the bottom.
-
-```{r cake, fig.cap = 'The open science cake showing the connection between research, environmental decisions, and the public.'}
-knitr::include_graphics('figs/cake.png')
-```
 
 Most of our partners are professionals from resource management or local government agencies that have some vested interest in the protection and restoration of Tampa Bay.  This is the primary audience that we can inform for decision-making.  Broadly speaking, this is the audience that needs distilled information from research products but with a level of specificity that goes beyond educational materials.  These individuals are in the middle of the cake and the slices they take are actionable science products, such as interactive dashboards, automated report cards, and other decision support tools.  The middle part of the cake is where conventional science becomes truly applied science.
 
@@ -426,10 +414,6 @@ Our web products on the [data visualization](https://tbep.org/our-work/data-vizu
 The cake is a useful metaphor to describe how we apply open science to achieve applied science, but how is this done in practice?  How are the layers of the cake actually linked to one another?  We use several open source programming tools to link source data to reporting products, with the goal of producing the most timely information for decision-makers with minimal overhead by internal staff.  In this section, we describe these tools and how we link them together to create a workflow that is both automated and reproducible.
 
 The workflow we use to link source data to reporting products for our [annual water quality assessment](https://tbep.org/water-quality-report-card/) is shown in figure \@ref(fig:osworkflow). The process begins by accessing an external data source from our partners.  In this case, this workflow accesses a spreadsheet of water quality data on an [FTP site](ftp://ftp.epchc.org/EPC_ERM_FTP/WQM_Reports/) maintained by the Environmental Protection Commission of Hillsborough County (EPC).  These data are processed using custom-built software developed by TBEP staff and with a suite of more general open source tools, including R, RStudio, relevant data wrangling packages, and tools for document preparation.  The open source tools we've created are also hosted online on [GitHub](https://github.com/tbep-tech) which serves two goals.  First, providing the tools on GitHub makes them discoverable and accessible to others. Second, they are integrated into an automated process to make sure the most current data are used for reporting. Once the build process for the report card is done, the final products are shared as a Shiny web application for additional inquiry and discovery, and our two-page PDF report are hosted on the TBEP website for general dissemination.
-
-```{r osworkflow, fig.cap = 'The TBEP open science workflow connecting source data to decision-support tools.'}
-knitr::include_graphics('figs/os-workflow.png')
-```
 
 The core component of this entire workflow is the [tbeptools R package](https://tbep-tech.github.io/tbeptools/) [@Beck21].  This software was developed using the [R programming language](https://cran.r-project.org/) to read, analyze, and visualize data that we use to report on progress in achieving CCMP goals.  Most of the data tools on our web page depend on functions within the tbeptools package to work with the raw data provided from our partners. Although tbeptools is primarily used by TBEP staff, the package is provided free of use (under the [MIT license](https://tldrlegal.com/license/mit-license)) for anyone interested in exploring the data on their own.  Importantly, all source code is available on GitHub so that anyone with an interest can understand exactly what is done to process the data we use for reporting.  This is a very literal definition of method transparency.  
 
@@ -445,19 +429,11 @@ Each vignette is set up similarly by explaining the functions used to read, anal
 
 The functions in tbeptools used to read data into R were all built to ensure the most recent data are used for analysis.  Each data import function follows a decision tree shown in figure \@ref(fig:readchk), where a set of internal checks are used to see if the data are available on your computer, compare the data to the online source, and download the most recent version if a local file doesn't exist or your current file is out of date.  This process also ensures that any downstream reporting products are using the most current data.  For example, the web page for [water quality assessment](https://tbep.org/water-quality-report-card/) has a provisional report card that is based on the most recent water quality data available from EPC.  Although the "official" report card is published at the beginning of each year, provisional data throughout the year can be used to assess water quality changes in near real time.
 
-```{r readchk, out.width = '80%', echo = F, fig.cap = "Internal checks used by the tbeptools R package to ensure the most current data are used for analysis."}
-knitr::include_graphics('figs/readchk.png')
-```
-
 The workflows we've created that access source data to create reporting products depend on data being online in a stable location.  This underlies the importance of proper data management practices.  We cannot create and use the reporting products without a findable and accessible location for the source data.  The data we use for our various indicators are distributed at different locations depending on who maintains the information.  This includes a mix of FTP sites, Microsoft Access databases, JSON files, or geospatial data hosted through third party websites.  The various locations, data formats, and depths of available metadata are a potential concern for long-term viability of these workflows.  A majority of the locations where these data are found are not formal data archives or repositories and there are not any "official" standards for how these data are made available.  Because of this, a long-term goal for TBEP and our partners is to work towards a shared data management infrastructure that more closely follows the FAIR principles.
 
 A critical part of the workflow in figure \@ref(fig:osworkflow) is automation.  We have developed the functions in the tbeptools package with this in mind, i.e., making sure the most up to date data are used without having to manually download the data.  We also leverage continuous integration/continuous deployment (CI/CD) services through GitHub that automate our workflows.  CI/CD simply means that we've setup automated checks and processes based on different triggers that happen when we do something to a project that we've put on GitHub.  For example, every time we push (upload) a change that we've made on a local version (i.e., on a personal computer) of tbeptools to the main repository on GitHub, a set of automated checks are used to make sure we didn't break anything in the package.  The "badges" you see on GitHub and in the data visualization section of the TBEP website indicate if the checks were successful or not.  These badges are small indicator icons that are shown as green (checks passing), red (checks failing), or grey (no information).  They are often included in GitHub repositories and can also be linked on other websites.  These provide a quick scan of whether or not you should expect the package to work as intended if you download it from its current state in the repository.   
 
 Many of the README files for the different GitHub projects we maintain include one or more badges that indicate if our data products are working as we hope.  For example, the README file for our tbeptools R package includes three badges that indicate the status of different CI/CD processes (figure \@ref(fig:badges)).  The first badge, R-CMD-Check, shows if the set of standard checks for R packages are passing.  There are dozens of checks for R packages, including things like making sure the documentation is up-to-date, file sizes aren't excessive, the file structure is setup correctly, the examples run without errors, etc. (see [chapter 19](https://r-pkgs.org/r-cmd-check.html) in @Wickham15 for a full description of these checks).  The second "pkgdown" badge shows if the [website](https://tbep-tech.github.io/tbeptools/) for the package (built with the R pkgdown package; @Wickham20) has been successfully built with the last change to the repository, i.e., does information on the website reflect the package in its current state?  Finally, the "codecov" badge provides a general estimate of how much code in the package includes unit tests as part of best practices for software development. In this case, nearly all of the code (92\%) is tested in one form or another.
-
-```{r badges, echo = F, fig.cap = 'An example of the status badges included in the README file for the tbeptools R package.'}
-knitr::include_graphics('figs/badges.PNG')
-```
 
 The CI/CD workflows are completely customizable to suit the needs of a given project. The badges in the previous example simply indicate if the CI/CD checks for a package and its website are working correctly.  These are often included in README files to give users peace of mind that our development processes are following accepted standards in the broader open source community.  Other badges can indicate if a custom workflow is up to date, such as for our automated reporting products.  The water quality report card has a provisional draft that uses the most recent dataset from EPC.  The CI/CD process is setup to rebuild the pdf by running a custom "build" file that imports the data, analyzes the results, and creates the plots, all using function from tbeptools. The output graphics are embedded in a type of document preparation system that mixes plain text and code to dynamically generate a static pdf.  All of this is accomplished in the build file, which is triggered daily through the CI/CD services on GitHub.  The CI/CD badge for this repository indicates if the daily build was run and if the provisional pdf was successfully created.  Many of our reporting products leverage these services and you can view the status of each product from the badges we've placed on our main TBEP website or on the README file for specific GitHub repositories. 
 
@@ -490,10 +466,6 @@ The TBEP has a [group GitHub page](https://github.com/tbep-tech) where all of ou
 This section is written as a road map for managing a data product, keeping in mind the list of tools and resources in section \@ref(tbepapproach) that can be used along the way to develop the product.  These tools can help you at different stages of the data management process to help build the layers of the open science cake. The guidance provided by @Goodman14 and @Michener15 are also excellent resources presented as "simple rules" for working with data.  @Goodman14 develops a metaphor of data as a living entity by describing rules for the care and feeding of scientific data. @Michener15 focuses on rules for developing a data management plan.  Many of the concepts and tools presented herein are elaborated upon in these two resources.    
 
 A road map to developing a plan and set of tools for delivering a data product is shown in figure \@ref(fig:dataworkflow).  This map is presented as a hypothetical one-year project from beginning to end, but it can be applied to a project of any duration. The steps are separated along a general timeline with a notable distinction between steps occurring before and after data collection.  It's also very important to realize that "data collection" can have a literal interpretation as collecting data in the field or during an experiment, whereas collection can also be considered generically as the process of creating less conventional data products (e.g., workflows, modelling output/information, decision-support tools, section \@ref(contribs)).
-
-```{r dataworkflow, fig.cap = 'A hypothetical and generalized timeline for managing data associated with a project.', out.width = '100%'}
-knitr::include_graphics('figs/dataworkflow.png')
-```
 
 There are five general steps in the road map.  Where you're at in the project determines what conversation you're having with yourself and your research team about managing the data product.  At the beginning of a project in Step 1, goals and objectives are defined, potential data contributions are identified, and metadata concepts are introduced. Step 2 is developing the data framework, meaning you will identify how your data are structured within the goals of the project.  Here you are thinking about data dictionaries or workflows you will use to generate the data product.  In Step 3, you are actively collecting and curating data in a way that conforms to the framework you've developed.  This step is iterative because it is where most of the work happens and you may need to rethink some of the ideas around data curation based on how the collection process works in reality.  Steps 4 and 5 focus on identifying where the data are going to be maintained/stored and finally delivering the data at that location.  
 
@@ -623,37 +595,17 @@ In this section we describe three case studies to demonstrate how data managemen
 
 ## Oyster restoration in Tampa Bay {#oyster}
 
-```{r, out.width = '50%', fig.cap = 'Restoration of oyster reefs (*Crassostrea virginica*) is a critical management goal to support key habitats in Tampa Bay.'}
-knitr::include_graphics('figs/oysters.jpg')
-```
-
 Establishment and restoration of oyster reefs in Tampa Bay is a critical programmatic goal defined under our [Comprehensive Conservation and Management Plan](https://indd.adobe.com/view/cf7b3c48-d2b2-4713-921c-c2a0d4466632) [@tbep1017] and [Habitat Master Plan Update](https://drive.google.com/file/d/1Hp0l_qtbxp1JxKJoGatdyuANSzQrpL0I/view) [@tbep0720].  Oyster reefs are formed by the cumulative build up of shell material over time and provide food and habitat for other organisms, reduce erosion, stabilize shorelines, and improve water quality.  Recreational and commercial harvest of oysters are also important activities that contribute to the value of Tampa Bay.  The historical distribution of oyster populations in Tampa Bay is poorly documented, although anecdotal evidence suggests current coverage of oysters in Tampa Bay is far less than previously observed.  Establishment and restoration of oyster reefs have been fundamental activities to re-establish sustainable populations in the Bay.  
 
 Critical questions on factors that contribute to the successful establishment or restoration of oysters in Tampa Bay need to be answered to achieve our programmatic goals.  Data have recently been collected to evaluate characteristics that contribute to the long-term success of natural and restored sites, including location in the Bay, seasonal timing of restoration activities, and preferred restoration materials under varying conditions.  In addition, standardized monitoring protocols for restoration sites to evaluate or estimate long-term success are needed.  This project involves establishing restoration sites at different locations and collecting field data to address relevant questions. 
 
 At the time of writing, field data have been collected for the two-year project and is stored in multiple spreadsheets in an Excel workbook (figure \@ref(fig:oysexc)).  The field data is a likely candidate for the most important data contribution of this project and a plan for curating these data has recently been developed.  This plan is primarily focused on answering questions to identify which factors promote long-term success of oyster reefs, with the intent of formatting the data for analysis to answer these questions and delivering the data in a way to reproduce the results.  Environmental managers (e.g., partners that conduct restoration) may have interest in the results (i.e., analysis outcomes), whereas outside researchers may have an interest in using the raw data to support follow-up analysis or to integrate the information with other datasets.   
 
-```{r oysexc, fig.cap = "A screenshot of the raw oyster data from the first year of field work.  The data are close to tidy, but information is spread across tables with no easy way to link between them.", out.width = '100%'}
-knitr::include_graphics('figs/oysterexcel.PNG')
-```
-
 The current approach for managing these data has focused on adopting a tidy format for the existing information.  Because field data collection has already begun, we developed a post-hoc workflow to wrangle the information into flat files with appropriate keys to link data between tables.  Identifying a permanent home for these data and formal documentation of metadata have not been done, although tidying the data will aid analysis and facilitate documentation and delivery of final data products.  In this example, we focus on the steps to tidy the data. 
 
 Our tidying workflow for the first year of field data is available in a GitHub repository: https://github.com/tbep-tech/tberf-oyster. The raw data are available in the `data/raw` folder and processing to make them "tidy" is accomplished through a custom analysis script at `R/dat_proc.R`.  The analysis script converts the raw data present in multiple sheets in the Excel workbook to three separate tidy tables.  We use functions from the tidyr and dplyr R packages as part of the tidyverse [@Wickham19] to format relevant information from the raw data to create the separate tidy tables.  This process also involved discussion with project partners when ambiguous labels were observed in the data or presented as conflicting information between tables.   
 
 The final "tidy" tables include three flat files for the site data (table \@ref(tab:tabsitdat)), water quality data at each site (table \@ref(tab:tabwqmdat)), and oyster data at each site (table \@ref(tab:taboysdat)).  
-
-```{r tabsitdat}
-knitr::kable(head(sitdat), caption = 'First six rows of the tidy site data.', label = 'tabsitdat')
-```
-
-```{r tabwqmdta}
-knitr::kable(head(wqmdat), caption = 'First six rows of the tidy water quality data.', label = 'tabwqmdat')
-```
-
-```{r taboysdat}
-knitr::kable(head(oysdat), caption = 'First six rows of the tidy oyster data.', label = 'taboysdat')
-```
 
 Each table is in a tidy format with: 1) each variable having its own column, 2) each observation in its own row, and 3) each value having its own cell.  The only exception to these rules is the `id` column which is a combination of site name, restoration type (bags, domes, shell, etc.), installation year, and installation season.  This column violates the third rule of tidy data by including multiple values (site name, type, etc.) in one cell.  However, the creation of the `id` column was purposeful to achieve two goals.  First, we wanted to create a unique identifier for each restoration site based on our analysis questions of how site location, type, and time of installation influenced restoration success.  Each of of these characteristics can be used to evaluate the key research questions for the project.  It would be more difficult to compare results between years, if for example, a key that only included site name (e.g., 2D Island only) was used. Thus, it was important to include all identifying characteristics in the `id` to facilitate the analysis.  Second, we wanted the unique identifier to easily convey key information about each site.  We could have used a random text string for each unique combination of site, type, installation year, and installation season, but it would be close to impossible to determine relevant details about each site without viewing table \@ref(tab:tabsitdat).
 
@@ -670,10 +622,6 @@ In this example, it is useful to understand reasons why raw data are often struc
 
 ## RESTORE data management: Ft. DeSoto circulation study {#desoto}
 
-```{r, out.width = '70%', fig.cap = 'Billions of dollars were made available for Gulf Coast restoration following legal actions from the BP Deepwater Horizon oil spill.'}
-knitr::include_graphics('figs/deepwater.jpg')
-```
-
 The BP Deepwater Horizon oil spill is considered the largest environmental disaster in the history of the petroleum industry.  Over 200 million gallons of oil were estimated to have been discharged into the Gulf of Mexico, leading to large-scale environmental damages and economic impacts to Gulf Coast communities.  As one of several financial restitutions from responsible parties following this disaster, the federal Resources and Ecosystems Sustainability, Tourist Opportunities and Revived Economies (RESTORE) Act of 2012 established a trust fund to direct billions in US dollars towards expanding ecological restoration on the Gulf Coast.  
 
 In partnership with city and county agencies, the TBEP was awarded funds in 2018 under the [RESTORE Council](https://www.restorethegulf.gov/) to advance the protection and restoration of Tampa Bay through projects that address invasive species control, habitat restoration, and climate change.  A total of five projects are currently supported under these funds, including 1) habitat restoration, modelling, and monitoring at Ft. DeSoto park in Pinellas County, 2) stormwater enhancement at a local park in the city of Tampa, 3) invasive species removal at Cockroach Bay Aquatic Preserve in Hillsborough County, 4) habitat restoration at Robinson Preserve in Manatee County, and 5) upgrades at a city of St. Petersburg wastewater treatment facility to capture and use biogas as an alternative fuel.  Each of these projects are ongoing, with RESTORE dollars allowing continuation of activities through the duration of the grant. 
@@ -689,19 +637,11 @@ Data curation for the monitoring buoys included several components, all centrali
 * A permanent [DOI](https://zenodo.org/record/3941719#.YFM9069KiUk) made available through Zenodo that is linked directly to the GitHub repository
 * Automated daily build through [GitHub Actions](https://github.com/tbep-tech/desoto-buoy/actions) that accesses the source data, runs tests, and saves a binary RData file made accessible to the Shiny application
 
-```{r desotoshiny, fig.cap = "An R Shiny [dashboard](https://github.com/tbep-tech/desoto-buoy) for viewing and downloading water quality monitoring data for the Ft. DeSoto project."}
-knitr::include_graphics('figs/desotoshiny.PNG')
-```
-
 These products were created with several goals in mind.  First, they allow others to reproduce the workflow for alternative applications by exposing the source code for how the data were processed, including metadata as context for the raw data. Second, these products also increase accessibility by providing access to download information from stable locations and allowing interaction for quick visual QA/QC of the data through the dashboard. Third, routine data processing is automated through daily builds and tests that update the information used by the Shiny application by checking the source data on an FTP site. The continuous monitoring data from the buoys are uploaded to the FTP by a satellite connection and a series of tests (using the R [testthat](https://testthat.r-lib.org/) package) are integrated into the daily checks that will create an alert if the processed data do not conform to expectations (i.e., column names change, dates are incorrect, etc.). This service is critical for continuous monitoring data where more information is typically produced by sensors than would be reasonably possible to manually evaluate for QA/QC.
 
 This example is important for demonstrating an expansion of the general concepts presented in section \@ref(automation), where important data contributions are both literal and more general.  A literal data product is the dataset produced by the monitoring buoys, whereas the workflow on GitHub for processing the data and hosting the Shiny application is a more general data product.  The dataset from the monitoring buoys also has a simple metadata file meant to provide context as opposed to a more formal metadata file that could be used with a standardized data repository.  Overall, applying this workflow (version control, Shiny app development, automated tests) is feasible for other important data products created under this grant, but likely impractical for all products.  Project managers should carefully consider other important datasets where open science workflows could increase the value beyond simple hosting on internal servers under the existing plan.
 
 ## Red tide and social media {#twitter}
-
-```{r, out.width = '80%', fig.cap = 'Red tide *Karenia brevis* on the Gulf Coast of Florida (image credit: NOAA)'}
-knitr::include_graphics('figs/red tide.jpg')
-```
 
 Red tides from *Karenia brevis* have been observed on the southwest coast of Florida for over a century.  Similar to global trends, these events have increased in severity, frequency, and geographic extent in recent years.  Toxins produced by these species and degradation of water quality conditions can negatively impact coastal environments.  Large die-off events of marine organisms are commonly observed with red tides, including fish, birds, turtles, and large mammals. Human health during ride tides can be negatively impacted, as toxins are aerosolized out of the water column and can cause respiratory or skin irritation.  Tourism and waterfront business revenues are also reduced in areas affected by red tide. 
 
@@ -714,10 +654,6 @@ The current project was funded in 2019 and is complete (https://www.scienceanden
 The Twitter data were used in two analyses, first to characterize links between tweet volume and timing with actual algal bloom conditions, and second, to characterize "emotional" content of tweets through sentiment analysis that can inform understanding of public response to natural disasters.  Given that this approach has never been used to evaluate social responses to large-scale bloom events, important contributions of the project were the workflow for preparing tweets for the first analysis and custom data products for the second analysis that can be used in follow-up research. In the latter case, this included a "lexicon" or vocabulary of emotions that are required for sentiment analysis, but specific to the topic of interest.  A time-consuming aspect of sentiment analysis is developing the vocabulary and follow-up research can benefit from having a pre-existing lexicon.  
 
 Identifying a location for data products was critical to ensure the results had a lifespan beyond the research paper and that they could have the largest potential impact to inform future management response to red tide.  A [GitHub repository](https://github.com/tbep-tech/red-tide-twitter) (figure \@ref(fig:redtidereadme)) was created to include supplementary material for the manuscript (in review at the time of writing). The content includes anonymized tweet data (Secure_Tweets_data.csv), vocabularies for the sentiment analysis, and R code to run the sentiment analysis.  A [permanent DOI](https://zenodo.org/badge/latestdoi/318579178) was also created that linked the repository to the Zenodo archiving service. The repository was listed in the supplementary text for the manuscript to clearly point readers to actual content used for the analysis to facilitate follow-up research. 
-
-```{r redtidereadme, out.wdith = '90%', fig.cap = 'The README file for the GitHub repository, including relevant data products to evaluate Twitter responses to red tide. Available at <https://github.com/tbep-tech/red-tide-twitter>.'}
-knitr::include_graphics('figs/redtidereadme.PNG')
-```
 
 This example is important because it represents the common scenario of identifying an important contribution at the completion of a project. Like the other case studies, the concept of *something is better than nothing* was discussed between the TBEP and project leads.  At the completion of the project it was clear that documenting and curating all datasets was impractical and the conversation focused on identifying which components of this work were most important for promoting additional research and informing management actions.  Because the application of analysis methods was novel for red tide events, data curation focused on documenting the workflow for tweet analysis and ensuring the lexicon was findable and accessible by others.  This was a deliberate attempt to seed additional research on a topic that has not been well-studied.
 
@@ -765,10 +701,6 @@ Interaction with peers is a critical component of the learning process when inte
 
 I close with a graphic from [Allison Horst](https://twitter.com/allison_horst) (figure \@ref(fig:codehero)) that skillfully illustrates this concept of using your peers as a support network in learning new tools.  Incorporating a new skill into your workflow can be elevated by help from the larger community of software developers, educators, bloggers, mentors, colleagues, and friends.  When you hit a road block, look to this community to serve as a safety net to get you out of tricky situations.  Your personal success is not achieved in isolation. I would not be where I'm at in my career without the work of others and the community available at my fingertips through a quick web search.  Please keep these resources in mind as you work towards a more FAIR data management plan.
 
-```{r codehero, out.width = '100%', fig.cap = 'Look to the helpers and your open science community! Artwork by Allison Horst.'}
-knitr::include_graphics('figs/code_hero.jpg')
-```
-
 # Acknowledgments
 
 # Figures
@@ -797,6 +729,73 @@ knitr::include_graphics('figs/desotometa.PNG')
 knitr::include_graphics('figs/emlsimple.PNG')
 ```
 
+```{r datadict, out.width = '80%', echo = F, fig.cap = 'An example of a data dictionary.'}
+knitr::include_graphics('figs/datadict.png')
+```
+```{r divide, out.width = '80%', fig.cap = "Challenges to bridging the divide between scientific products created in research and informed decisions for environmental management.", fig.align = 'center', echo = F}
+knitr::include_graphics('figs/divide2.png')
+```
+
+```{r cake, fig.cap = 'The open science cake showing the connection between research, environmental decisions, and the public.'}
+knitr::include_graphics('figs/cake.png')
+```
+
+```{r osworkflow, fig.cap = 'The TBEP open science workflow connecting source data to decision-support tools.'}
+knitr::include_graphics('figs/os-workflow.png')
+```
+
+```{r readchk, out.width = '80%', echo = F, fig.cap = "Internal checks used by the tbeptools R package to ensure the most current data are used for analysis."}
+knitr::include_graphics('figs/readchk.png')
+```
+
+```{r badges, echo = F, fig.cap = 'An example of the status badges included in the README file for the tbeptools R package.'}
+knitr::include_graphics('figs/badges.PNG')
+```
+
+```{r dataworkflow, fig.cap = 'A hypothetical and generalized timeline for managing data associated with a project.', out.width = '100%'}
+knitr::include_graphics('figs/dataworkflow.png')
+```
+
+```{r, out.width = '50%', fig.cap = 'Restoration of oyster reefs (*Crassostrea virginica*) is a critical management goal to support key habitats in Tampa Bay.'}
+knitr::include_graphics('figs/oysters.jpg')
+```
+
+```{r oysexc, fig.cap = "A screenshot of the raw oyster data from the first year of field work.  The data are close to tidy, but information is spread across tables with no easy way to link between them.", out.width = '100%'}
+knitr::include_graphics('figs/oysterexcel.PNG')
+```
+
+```{r, out.width = '70%', fig.cap = 'Billions of dollars were made available for Gulf Coast restoration following legal actions from the BP Deepwater Horizon oil spill.'}
+knitr::include_graphics('figs/deepwater.jpg')
+```
+
+```{r desotoshiny, fig.cap = "An R Shiny [dashboard](https://github.com/tbep-tech/desoto-buoy) for viewing and downloading water quality monitoring data for the Ft. DeSoto project."}
+knitr::include_graphics('figs/desotoshiny.PNG')
+```
+
+```{r, out.width = '80%', fig.cap = 'Red tide *Karenia brevis* on the Gulf Coast of Florida (image credit: NOAA)'}
+knitr::include_graphics('figs/red tide.jpg')
+```
+
+```{r redtidereadme, out.wdith = '90%', fig.cap = 'The README file for the GitHub repository, including relevant data products to evaluate Twitter responses to red tide. Available at <https://github.com/tbep-tech/red-tide-twitter>.'}
+knitr::include_graphics('figs/redtidereadme.PNG')
+```
+
+```{r codehero, out.width = '100%', fig.cap = 'Look to the helpers and your open science community! Artwork by Allison Horst.'}
+knitr::include_graphics('figs/code_hero.jpg')
+```
+
 # Tables
+
+```{r tabsitdat}
+knitr::kable(head(sitdat), caption = 'First six rows of the tidy site data.', label = 'tabsitdat')
+```
+
+```{r tabwqmdta}
+knitr::kable(head(wqmdat), caption = 'First six rows of the tidy water quality data.', label = 'tabwqmdat')
+```
+
+```{r taboysdat}
+knitr::kable(head(oysdat), caption = 'First six rows of the tidy oyster data.', label = 'taboysdat')
+```
 
 # References

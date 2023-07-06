@@ -1,12 +1,12 @@
 ---
-title: "Moving from implied to applied science with better data management"
+title: "Moving from implied to applied science with better data management at the National Estuary Program"
 output: 
   bookdown::word_document2:
     reference_docx: my_styles.docx
     number_sections: false
 always_allow_html: true
 bibliography: refs.bib
-author: "Marcus W. Beck (mbeck@tbep.org), Gary E. Raulerson (graulerson@tbep.org), Maya C. Burke (mburke@tbep.org), Joe Whalen (jwhalen@tbep.org), Sheila Scolaro (sscolar@tbep.org), Ed T. Sherwood (esherwood@tbep.org)"
+author: "Marcus W. Beck (mbeck@tbep.org), Maya C. Burke (mburke@tbep.org), Kerry Flaherty-Walia (kfwalia@tbep.org), Jessica Lewis (jlewis@tbep.org), Sheila Scolaro (sscolar@tbep.org), Blake A. Simmons (bsimmons@tbep.org), Ed T. Sherwood (esherwood@tbep.org)"
 urlcolor: blue
 csl: ecosphere.csl
 link-citations: true
